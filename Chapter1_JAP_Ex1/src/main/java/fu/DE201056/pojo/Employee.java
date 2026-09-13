@@ -52,4 +52,10 @@ public class Employee {
     public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+
 }

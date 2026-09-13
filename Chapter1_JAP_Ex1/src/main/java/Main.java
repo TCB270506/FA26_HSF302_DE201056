@@ -33,6 +33,15 @@ public class Main {
         Employee afterDelete = dao.findById(emp.getId());
         System.out.println("Sau khi xoa, tim lai: "+afterDelete);
 
-
+        //todo9
+        Employee dup1 = new Employee("User 1", "trung@fpt.edu.vn", new BigDecimal("11000000"),Gender.MALE,LocalDate.now());
+        Employee dup2 = new Employee("User 2", "trung@fpt.edu.vn", new BigDecimal("11000000"), Gender.MALE, LocalDate.now());
+        dao.save(dup1);
+        try{
+            dao.save(dup2);
+            System.out.println("Loi: khong thay exception nhu ky vong!");
+        }catch (RuntimeException e){
+            System.out.print("da bat duoc loi email nhu ky vong: "+e.getClass().getSimpleName());
+        }
     }
 }
