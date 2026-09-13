@@ -28,4 +28,24 @@ public class EmployeeDAO {
         }
     }
 
+    // read todo4
+    public Employee findById(Long id){
+        EntityManager em = emf.createEntityManager();
+        try{
+            return  em.find(Employee.class, id);
+        }finally{
+            em.close();
+        }
+    }
+
+    public List<Employee> findAll(){
+        EntityManager em = emf.createEntityManager();
+        try{
+            return em.createQuery("SELECT e FROM Employee e", Employee.class)
+                    .getResultList();
+        }finally{
+            em.close();
+        }
+    }
+
 }
