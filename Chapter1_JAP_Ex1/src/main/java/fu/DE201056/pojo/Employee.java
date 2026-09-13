@@ -33,5 +33,23 @@ public class Employee {
     @Transient
     int yearsOfService;
 
+    public Employee() {
+    }
 
+    public Employee(String fullName, String email, BigDecimal salary,
+                    Gender gender, LocalDate hireDate) {
+        this.fullName = fullName;
+        this.email = email;
+        this.salary = salary;
+        this.gender = gender;
+        this.hireDate = hireDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
+    }
 }

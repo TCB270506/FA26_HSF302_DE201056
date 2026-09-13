@@ -11,7 +11,7 @@ import java.util.List;
 public class EmployeeDAO {
 
     private static final EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("hsf301FU");
+            Persistence.createEntityManagerFactory("hsf302FU");
 
     // create todo3
     public void save(Employee e){
