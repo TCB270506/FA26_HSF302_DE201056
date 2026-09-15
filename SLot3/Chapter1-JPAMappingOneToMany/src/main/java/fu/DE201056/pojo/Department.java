@@ -23,6 +23,21 @@ public class Department {
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees = new ArrayList<>();
 
+    public Department(String name, String location) {
+        this.name = name;
+        this.location = location;
+    }
+
+    public void addEmployee(Employee e) {
+        this.employees.add(e);
+        e.setDepartment(this);
+    }
+
+    public void removeEmployee(Employee e) {
+        this.employees.remove(e);
+        e.setDepartment(null);
+    }
+
 
     public Department() {
     }

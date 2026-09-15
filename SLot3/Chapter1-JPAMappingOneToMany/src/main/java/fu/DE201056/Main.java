@@ -1,17 +1,25 @@
 package fu.DE201056;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import fu.DE201056.pojo.Department;
+import fu.DE201056.pojo.Employee;
+import fu.DE201056.pojo.Gender;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+Department dept = new Department("IT", "Ha Noi");
+        Employee emp = new Employee("Test", "test@company.com", Gender.OTHER,
+                new BigDecimal("1000"), LocalDate.now());
+        dept.addEmployee(emp);
+        System.out.println(dept.getEmployees().contains(emp)); // phải true
+        System.out.println(emp.getDepartment() == dept); // phải true
+
     }
 }

@@ -40,14 +40,12 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Long id, String fullName, String email, BigDecimal salary, Gender gender, LocalDate hireDate, boolean active) {
-        this.id = id;
+    public Employee(String fullName, String email, Gender gender, BigDecimal salary, LocalDate hireDate) {
         this.fullName = fullName;
         this.email = email;
-        this.salary = salary;
         this.gender = gender;
+        this.salary = salary;
         this.hireDate = hireDate;
-        this.active = active;
     }
 
     public Long getId() {
@@ -104,5 +102,13 @@ public class Employee {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }
