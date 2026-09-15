@@ -33,6 +33,10 @@ public class Employee {
     @Transient
     int yearsOfService;
 
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
+
     public Employee() {
     }
 
