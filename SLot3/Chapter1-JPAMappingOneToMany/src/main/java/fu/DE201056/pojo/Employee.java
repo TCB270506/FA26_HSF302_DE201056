@@ -40,11 +40,12 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String fullName, String email, Gender gender, BigDecimal salary, LocalDate hireDate) {
+    public Employee(String fullName, String email, BigDecimal salary,
+                    Gender gender, LocalDate hireDate) {
         this.fullName = fullName;
         this.email = email;
-        this.gender = gender;
         this.salary = salary;
+        this.gender = gender;
         this.hireDate = hireDate;
     }
 

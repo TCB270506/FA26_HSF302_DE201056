@@ -36,6 +36,18 @@ public class DepartmentDAO {
         }
     }
 
+    // time department theo id
+    public Department findById(Long id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.find(Department.class, id);
+        } catch (RuntimeException ex) {
+            throw ex;
+        } finally {
+            em.close();
+        }
+    }
+
     //1 Department kèm danh sách Employee trong 1 lần
     public Department findAllEmployeeInDepartment(Long id){
         EntityManager em = emf.createEntityManager();
