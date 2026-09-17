@@ -8,6 +8,7 @@ import fu.DE201056.pojo.Gender;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -96,6 +97,10 @@ public class Main {
                                         + ", Name: " + emp.getFullName()
                         );
                     }
+                    break;
+
+                case 3:
+                    departmentDAO.findAllDepartmentsAndEmployees();
                     break;
 
                 case 0:
