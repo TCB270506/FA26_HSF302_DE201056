@@ -13,7 +13,7 @@ public class EmployeeDAO {
     private static final EntityManagerFactory emf =
             Persistence.createEntityManagerFactory("hsf302FU");
 
-   
+
     public void save(Employee e){
         EntityManager em= emf.createEntityManager();
         try{
