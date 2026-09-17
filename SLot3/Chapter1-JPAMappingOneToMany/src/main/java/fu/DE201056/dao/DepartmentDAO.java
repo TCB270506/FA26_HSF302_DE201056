@@ -60,25 +60,19 @@ public class DepartmentDAO {
     }
 
     //find all
-    public void findAllDepartmentsAndEmployees() {
+    public List<Department> findAllDepartmentsAndEmployees() {
         EntityManager em = emf.createEntityManager();
+        List<Department> departments = null;
 
         try {
-            List<Department> departments = em.createQuery(
-                    "SELECT d FROM Department d",
+            departments = em.createQuery(
+                    "SELECT d FROM Department d JOIN FETCH d.employees",
                     Department.class
             ).getResultList();
-
-            for (Department department : departments) {
-                System.out.println(department.getName());
-
-                for (Employee employee : department.getEmployees()) {
-                    System.out.println(employee.getFullName());
-                }
-            }
         } finally {
             em.close();
         }
+        return departments;
     }
 
 }

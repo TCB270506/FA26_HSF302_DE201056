@@ -24,6 +24,7 @@ public class Main {
             System.out.println("\n===== MENU =====");
             System.out.println("1. Add Employee");
             System.out.println("2. Find Department and Employees");
+            System.out.println("3. Find all Department and Employees");
             System.out.println("0. Exit");
             System.out.print("Choose: ");
 
@@ -100,7 +101,18 @@ public class Main {
                     break;
 
                 case 3:
-                    departmentDAO.findAllDepartmentsAndEmployees();
+                    List<Department> departments = departmentDAO.findAllDepartmentsAndEmployees();
+
+                    for (Department dep : departments) {
+                        System.out.println("Department: " + dep.getName());
+
+                        for (Employee emp : dep.getEmployees()) {
+                            System.out.println(
+                                    "ID: " + emp.getId()
+                                            + ", Name: " + emp.getFullName()
+                            );
+                        }
+                    }
                     break;
 
                 case 0:
