@@ -37,7 +37,13 @@ public class Employee {
     @Transient
     int yearsOfService;
 
-
+    @ManyToMany
+    @JoinTable(
+            name = "employee_project",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    private Set<Project> projects = new HashSet<>();
 
     public Employee() {
     }
