@@ -1,6 +1,7 @@
 package fu.DE201056.dao;
 
 import fu.DE201056.pojo.Employee;
+import fu.DE201056.pojo.Project;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -23,6 +24,32 @@ public class EmployeeDAO {
         } catch (RuntimeException ex) {
             if (em.getTransaction().isActive()) em.getTransaction().rollback();
             throw ex;
+        } finally {
+            em.close();
+        }
+    }
+
+    public void assignEmployeeToProject(Long employeeId, Long projectId) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            Employee employee = em.find(Employee.class, employeeId);
+            Project project = em.find(Project.class, projectId);
+
+            if (employee == null || project == null) {
+                throw new IllegalArgumentException("Employee or Project not found");
+            }
+
+            employee.assignToProject(project);
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
         } finally {
             em.close();
         }
