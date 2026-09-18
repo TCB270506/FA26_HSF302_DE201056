@@ -61,6 +61,11 @@ public class Employee {
         return email != null ? email.hashCode() : 0;
     }
 
+    public void assignToProject(Project p) {
+        this.projects.add(p);
+        p.getEmployees().add(this);
+    }
+
     public Employee() {
     }
 

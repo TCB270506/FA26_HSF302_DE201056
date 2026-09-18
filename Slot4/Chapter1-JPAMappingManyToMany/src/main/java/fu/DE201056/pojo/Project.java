@@ -51,7 +51,7 @@ public class Project {
     public int hashCode() {
         return projectCode != null ? projectCode.hashCode() : 0;
     }
-    
+
     public Project() {
     }
 
