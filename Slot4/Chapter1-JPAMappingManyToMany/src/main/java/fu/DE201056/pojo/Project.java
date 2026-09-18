@@ -10,7 +10,9 @@ import jakarta.persistence.Column;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "projects")
@@ -32,7 +34,8 @@ public class Project {
     private LocalDate endDate;
 
     @ManyToMany(mappedBy = "projects")
-    private List<Employee> employees;
+    private Set<Employee> employees = new HashSet<>();
+
 
     public Project() {
     }
@@ -91,11 +94,11 @@ public class Project {
         this.endDate = endDate;
     }
 
-    public List<Employee> getEmployees() {
+    public Set<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<Employee> employees) {
+    public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
     }
 }
