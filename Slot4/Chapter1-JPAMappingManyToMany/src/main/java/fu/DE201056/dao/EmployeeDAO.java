@@ -57,5 +57,21 @@ public class EmployeeDAO {
         }
     }
 
- 
+    public List<Object[]> CountSalaryOfActiveEmployee(){
+
+        EntityManager em = emf.createEntityManager();
+        List<Object[]> list;
+        try {
+            list = em.createQuery("SELECT p.projectName, COUNT(e), SUM(e.salary)\n" +
+                    "FROM Project p JOIN p.employees e\n" +
+                    "WHERE e.active = true\n" +
+                    "GROUP BY p.projectName\n", Object[].class).getResultList();
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }finally {
+            emf.close();
+        }
+        return list;
+    }
+
 }
