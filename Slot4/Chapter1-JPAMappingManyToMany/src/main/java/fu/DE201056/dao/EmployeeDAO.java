@@ -8,6 +8,7 @@ import jakarta.persistence.Persistence;
 
 import javax.swing.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -128,6 +129,36 @@ public class EmployeeDAO {
             }
 
             employee.setActive(active);
+
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+    public void deactivateEmployee(Long employeeId) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            Employee employee = em.find(Employee.class, employeeId);
+
+            if (employee == null) {
+                throw new IllegalArgumentException("Employee not found");
+            }
+
+            employee.setActive(false);
+
+            for (Project project : new HashSet<>(employee.getProjects())) {
+                employee.unassignFromProject(project);
+            }
 
             em.getTransaction().commit();
 
