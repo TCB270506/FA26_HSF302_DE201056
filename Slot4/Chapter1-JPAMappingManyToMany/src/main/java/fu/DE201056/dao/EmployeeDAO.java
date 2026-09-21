@@ -101,7 +101,19 @@ public class EmployeeDAO {
         return list;
     }
 
-
+    public List<Employee> countActiveEmployee(){
+        EntityManager em = emf.createEntityManager();
+        List<Employee> emp;
+        try{
+            emp= em.createQuery("SELECT e FROM Employee e WHERE e.active = true AND SIZE(e.projects) > 1",Employee.class)
+                    .getResultList();
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }finally {
+            em.close();
+        }
+        return emp;
+    }
 
     public void setActive(Long employeeId, boolean active) {
         EntityManager em = emf.createEntityManager();
