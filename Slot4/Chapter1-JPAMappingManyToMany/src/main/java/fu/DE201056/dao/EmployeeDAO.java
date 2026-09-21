@@ -57,6 +57,33 @@ public class EmployeeDAO {
         }
     }
 
+    public void unassignEmployeeFromProject(Long employeeId, Long projectId) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            Employee employee = em.find(Employee.class, employeeId);
+            Project project = em.find(Project.class, projectId);
+
+            if (employee == null || project == null) {
+                throw new IllegalArgumentException("Employee or Project not found");
+            }
+
+            employee.unassignFromProject(project);
+
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
     public List<Object[]> CountSalaryOfActiveEmployee(){
 
         EntityManager em = emf.createEntityManager();

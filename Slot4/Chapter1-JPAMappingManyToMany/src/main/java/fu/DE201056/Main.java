@@ -16,10 +16,6 @@ public class Main {
 
         EmployeeDAO dao = new EmployeeDAO();
 
-        List<Object[]> list = dao.CountSalaryOfActiveEmployee();
-
-        for (Object[] row : list) {
-            System.out.println(row[0] + " | " + row[1] + " | " + row[2]);
-        }
+        dao.unassignEmployeeFromProject(5L, 1L);
     }
 }
