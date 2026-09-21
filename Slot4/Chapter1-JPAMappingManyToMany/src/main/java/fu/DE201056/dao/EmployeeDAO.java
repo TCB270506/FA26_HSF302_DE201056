@@ -84,7 +84,7 @@ public class EmployeeDAO {
         }
     }
 
-    public List<Object[]> CountSalaryOfActiveEmployee(){
+    public List<Object[]> countSalaryOfActiveEmployee(){
 
         EntityManager em = emf.createEntityManager();
         List<Object[]> list;
@@ -96,9 +96,37 @@ public class EmployeeDAO {
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }finally {
-            emf.close();
+            em.close();
         }
         return list;
+    }
+
+
+
+    public void setActive(Long employeeId, boolean active) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            Employee employee = em.find(Employee.class, employeeId);
+
+            if (employee == null) {
+                throw new IllegalArgumentException("Employee not found");
+            }
+
+            employee.setActive(active);
+
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            em.close();
+        }
     }
 
 }

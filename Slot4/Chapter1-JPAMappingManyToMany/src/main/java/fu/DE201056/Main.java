@@ -8,14 +8,13 @@ import fu.DE201056.pojo.Project;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
+        EmployeeDAO employeeDAO = new EmployeeDAO();
 
-        EmployeeDAO dao = new EmployeeDAO();
+        employeeDAO.setActive(9L,true);
 
-        dao.unassignEmployeeFromProject(5L, 1L);
     }
 }
