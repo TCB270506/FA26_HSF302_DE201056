@@ -18,4 +18,7 @@ public interface StudentService {
     boolean isEmailExisted(String email);                      // TODO 8b
     long countActive();                                        // TODO 8c
 
+    List<Student> searchByName(String keyword);        // TODO 9a
+    List<Student> findByEmailDomain(String domain);    // TODO 9b
+    List<Student> findWithoutEmail();                  // TODO 9c
 }
