@@ -1,10 +1,12 @@
 package com.hsf302.ch4.runner;
 
+import com.hsf302.ch4.pojo.Department;
 import com.hsf302.ch4.pojo.Gender;
 import com.hsf302.ch4.pojo.Student;
 import com.hsf302.ch4.service.DepartmentService;
 import com.hsf302.ch4.service.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.LazyInitializationException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
@@ -32,9 +34,25 @@ public class ExerciseRunner implements CommandLineRunner {
         //partE();
     }
 
-    private void partB() { todo6(); todo7(); }
-    private void partC() { todo8(); todo9();todo10();todo11();}
-    private void partD() { todo12(); todo13();todo14();todo15(); }
+    private void partB() {
+        todo6();
+        todo7();
+    }
+
+    private void partC() {
+        todo8();
+        todo9();
+        todo10();
+        todo11();
+    }
+
+    private void partD() {
+        todo12();
+        todo13();
+        todo14();
+        todo15();
+        todo16();
+    }
     //private void bonus() { todo24(); }
     //private void partE() { todo20(); todo21(); todo22(); todo23(); }
 
@@ -133,5 +151,20 @@ public class ExerciseRunner implements CommandLineRunner {
     private void todo15() {
         title("TODO 15: Subquery - GPA above average");
         printList("GPA > AVG", studentService.findAboveAverageGpa());
+    }
+
+    private void todo16() {
+        title("TODO 16: LazyInitializationException & JOIN FETCH");
+
+        Department ai = departmentService.findByCode("AI").orElseThrow();
+        try {
+            System.out.println("AI has " + ai.getStudents().size() + " students");
+        } catch (LazyInitializationException e) {
+            System.out.println("(a) Caught: " + e.getClass().getSimpleName());
+            System.out.println("    " + e.getMessage());
+        }
+        Department aiFull = departmentService.getWithStudents("AI");
+        System.out.println("(b) " + aiFull);
+        aiFull.getStudents().forEach(s -> System.out.println("     " + s));
     }
 }
