@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="7096e747-e59b-4060-94eb-027ad59c2f84" name="Changes" comment="" />
+    <list default="true" id="23ac5d82-0aa5-4896-96af-695d1ce1800a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ch4/src/main/java/com/hsf302/ch4/runner/DataInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ch4/src/main/java/com/hsf302/ch4/runner/ExerciseRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ch4/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ch4/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ch4/src/main/java/com/hsf302/ch4/Ch4Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/ch4/src/main/java/com/hsf302/ch4/Ch4Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ch4/src/test/java/com/hsf302/ch4/Ch4ApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/ch4/src/test/java/com/hsf302/ch4/Ch4ApplicationTests.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,17 +20,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
   "associatedIndex": 5
 }]]></component>
-  <component name="ProjectId" id="3JoEJTKLrw1W6YY3v1kzszq4uTl" />
+  <component name="ProjectId" id="3JxaKvO416saMYwagr6msBOJ88y" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -34,18 +35,16 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Ki5/HSF/slot6/ch4"
+    "kotlin-language-version-configured": "true"
   }
 }]]></component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7096e747-e59b-4060-94eb-027ad59c2f84" name="Changes" comment="" />
-      <created>1790318948852</created>
+      <changelist id="23ac5d82-0aa5-4896-96af-695d1ce1800a" name="Changes" comment="" />
+      <created>1790605113547</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1790318948852</updated>
+      <updated>1790605113547</updated>
     </task>
     <servers />
   </component>
