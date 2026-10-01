@@ -1,5 +1,6 @@
 package com.hsf302.ch4.runner;
 
+import com.hsf302.ch4.pojo.Course;
 import com.hsf302.ch4.service.CourseService;
 import com.hsf302.ch4.service.EnrollmentService;
 import com.hsf302.ch4.service.StudentService;
@@ -24,14 +25,14 @@ public class Exercise2Runner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        //partB();
+        partB();
         //partC();
         //partD();
         //bonus();        // chạy trên dữ liệu gốc → trước Part E
         //partE();
     }
 
-    // private void partB() { todo6(); todo7(); }
+     private void partB() { todo6();}
     //private void partC() { todo8(); todo9(); todo10(); todo11(); }
     //private void partD() { todo12(); todo13(); todo14(); todo15(); todo16(); todo17(); todo18(); todo19(); }
     //private void bonus() { todo25(); }
@@ -58,5 +59,15 @@ public class Exercise2Runner implements CommandLineRunner {
         }
     }
 
-    // todo6() ... todo25() viết ở các TODO bên dưới
+    // todo6() ... todo25() viết ở các TODO bên dưới\
+    
+    private void todo6() {
+        title("TODO 6: count, findAll(Sort), findById");
+        System.out.println("Total courses: " + courseService.count());
+        printList("All courses order by code", courseService.findAllOrderByCode());
+        for (long id : new long[]{2L, 99L}) {
+            System.out.println("findById(" + id + "): "
+                    + courseService.findById(id).map(Course::toString).orElse("Not found"));
+        }
+    }
 }
