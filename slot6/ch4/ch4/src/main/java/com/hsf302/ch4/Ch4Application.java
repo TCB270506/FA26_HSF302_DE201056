@@ -9,7 +9,5 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class Ch4Application {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Ch4Application.class, args);
-        StudentRepository studentRepository = context.getBean(StudentRepository.class);
-        System.out.println("Student count: " + studentRepository.count());
     }
 }
