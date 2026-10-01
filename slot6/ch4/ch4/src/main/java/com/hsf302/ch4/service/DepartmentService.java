@@ -1,5 +1,6 @@
 package com.hsf302.ch4.service;
 
+import com.hsf302.ch4.dto.DepartmentCount;
 import com.hsf302.ch4.dto.DepartmentStatDTO;
 import com.hsf302.ch4.pojo.Department;
 
@@ -21,5 +22,7 @@ public interface DepartmentService {
 
     int transferStudentsAndDelete(String fromCode, String toCode);   // TODO 22
     List<Department> findAll();                                      // TODO 22
+
+    List<DepartmentCount> countDepartment();
 
 }

@@ -1,5 +1,6 @@
 package com.hsf302.ch4.repository;
 
+import com.hsf302.ch4.dto.DepartmentCount;
 import com.hsf302.ch4.dto.DepartmentStatDTO;
 import com.hsf302.ch4.pojo.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,5 +23,8 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
     @Query("SELECT d FROM Department d LEFT JOIN FETCH d.students WHERE d.code = :code")
     Optional<Department> findByCodeWithStudents(@Param("code") String code);
+
+    @Query("SELECT d.name AS name, COUNT(s.department) AS count  FROM  Department d LEFT JOIN d.students s GROUP BY d.code, d.name HAVING COUNT(s.department) >2")
+    List<DepartmentCount> countDepartment();
 
 }

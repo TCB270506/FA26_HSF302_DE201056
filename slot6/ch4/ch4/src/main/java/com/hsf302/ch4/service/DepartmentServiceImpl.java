@@ -1,5 +1,6 @@
 package com.hsf302.ch4.service;
 
+import com.hsf302.ch4.dto.DepartmentCount;
 import com.hsf302.ch4.dto.DepartmentStatDTO;
 import com.hsf302.ch4.pojo.Department;
 import com.hsf302.ch4.repository.DepartmentRepository;
@@ -70,6 +71,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<Department> findAll() {
         return departmentRepository.findAll(Sort.by("id"));
+    }
+
+    @Override
+    public List<DepartmentCount> countDepartment() {
+        return departmentRepository.countDepartment();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.hsf302.ch4.runner;
 
+import com.hsf302.ch4.dto.DepartmentCount;
 import com.hsf302.ch4.dto.StudentSummary;
 import com.hsf302.ch4.pojo.Department;
 import com.hsf302.ch4.pojo.Gender;
@@ -16,9 +17,11 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.context.annotation.Profile;
 
 @Component
 @Order(2)
+@Profile("ex1")                 // chỉ chạy khi profile "ex1" được bật
 @RequiredArgsConstructor
 public class ExerciseRunner implements CommandLineRunner {
 
@@ -33,6 +36,8 @@ public class ExerciseRunner implements CommandLineRunner {
         partD();
         bonus();      // chạy trên dữ liệu gốc → trước Part E
         partE();
+        todo00();
+        todo000();
     }
 
     private void partB() {
@@ -231,5 +236,19 @@ public class ExerciseRunner implements CommandLineRunner {
         System.out.println("Deleted: " + deleted);
         System.out.println("Students left: " + studentService.count());
         printList("Final statistics", departmentService.getStatistics());
+    }
+
+    private void todo00(){
+        title("TODO00: find by gender");
+        List<Student> list = studentService.findByGender(Gender.valueOf("MALE"));
+        printList("Male student: ",list);
+    }
+
+    private void todo000(){
+        title("TODO000: count department");
+        List<DepartmentCount> list = departmentService.countDepartment();
+        for (DepartmentCount item : list) {
+            System.out.println("Department: " + item.getName() + " | Count: " + item.getCount());
+        }
     }
 }
