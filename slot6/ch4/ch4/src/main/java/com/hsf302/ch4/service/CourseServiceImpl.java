@@ -113,8 +113,26 @@ public class CourseServiceImpl implements CourseService {
         return students.size();
     }
 
+    @Override
+    public List<Course> findByCreditsBetween(int min, int max) {
+        return courseRepository.findCourseHaveCreditsBetween(min,max);
+    }
+
+    @Override
+    public List<Course> findByCreditsGreaterThan(int n) {
+        return courseRepository.findByCreditsGreaterThan(n);
+    }
+
+    @Override
+    public List<Course> findByKeyword(String keyword) {
+        return courseRepository.findByKeyword(keyword);
+    }
+
     private Course getCourse(String code) {
         return courseRepository.findByCode(code)
                 .orElseThrow(() -> new IllegalArgumentException("Course not found: " + code));
     }
+
+
 }
+

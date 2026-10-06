@@ -36,6 +36,9 @@ public class Exercise2Runner implements CommandLineRunner {
         partD();
         bonus();        // chạy trên dữ liệu gốc → trước Part E
         partE();
+        BTTL01();
+        BTTL02();
+        BTTL03();
     }
 //   todo24();
     private void partB() { todo6(); todo7();}
@@ -259,4 +262,20 @@ public class Exercise2Runner implements CommandLineRunner {
         printCourseStats();
         printList("Students without courses", enrollmentService.findStudentsWithoutCourses());
     }
+
+    private void BTTL01(){
+        title("BTTL01");
+        System.out.println(courseService.findByCreditsBetween(2,9));
+    }
+
+    private void BTTL02(){
+        title("BTTL02");
+        System.out.println(courseService.findByCreditsGreaterThan(2));
+    }
+
+    private void BTTL03(){
+        title("BTTL03");
+        System.out.println(courseService.findByKeyword("ing"));
+    }
+
 }
