@@ -1,5 +1,6 @@
 package fu.DE201056.Chapter6_Slot9_Demo.service;
 
+import fu.DE201056.Chapter6_Slot9_Demo.dto.StudentForm;
 import fu.DE201056.Chapter6_Slot9_Demo.entity.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,10 +15,12 @@ public interface StudentService {
 
     Optional<Student> findById(Long id);
 
-    Student create(Student student);
+    Optional<StudentForm> findFormById(Long id);
+
+    Student create(StudentForm form);
 
     /** @return true nếu tìm thấy và cập nhật; false nếu không tồn tại id */
-    boolean update(Long id, Student data);
+    boolean update(Long id, StudentForm form);
 
     /** @return true nếu xoá được; false nếu không tồn tại id */
     boolean delete(Long id);

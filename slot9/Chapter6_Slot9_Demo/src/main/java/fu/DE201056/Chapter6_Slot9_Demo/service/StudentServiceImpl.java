@@ -1,6 +1,7 @@
 package fu.DE201056.Chapter6_Slot9_Demo.service;
 
 
+import fu.DE201056.Chapter6_Slot9_Demo.dto.StudentForm;
 import fu.DE201056.Chapter6_Slot9_Demo.entity.Student;
 import fu.DE201056.Chapter6_Slot9_Demo.repository.StudentRepository;
 import org.springframework.data.domain.Page;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)          // mặc định: mọi method chỉ đọc
+@Transactional(readOnly = true)
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
@@ -24,7 +25,6 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Page<Student> findAll(Pageable pageable) {
-
         return studentRepository.findAll(pageable);
     }
 
@@ -34,24 +34,28 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    @Transactional                      // ghi dữ liệu → bỏ readOnly
-    public Student create(Student student) {
-        student.setId(null);            // luôn INSERT, không bao giờ ghi đè bản ghi cũ
+    public Optional<StudentForm> findFormById(Long id) {
+        return studentRepository.findById(id).map(this::toForm);
+    }
+
+    @Override
+    @Transactional
+    public Student create(StudentForm form) {
+        Student student = toEntity(form);
+        student.setId(null);
         return studentRepository.save(student);
     }
 
     @Override
     @Transactional
-    public boolean update(Long id, Student data) {
+    public boolean update(Long id, StudentForm form) {
         return studentRepository.findById(id)
                 .map(existing -> {
-                    existing.setName(data.getName());
-                    existing.setEmail(data.getEmail());
-                    existing.setAge(data.getAge());
-                    existing.setMajor(data.getMajor());
-                    existing.setGpa(data.getGpa());
-                    // Không cần gọi save(): entity đang "managed",
-                    // Hibernate tự sinh UPDATE khi transaction commit (dirty checking)
+                    existing.setName(form.getName());
+                    existing.setEmail(form.getEmail());
+                    existing.setAge(form.getAge());
+                    existing.setMajor(form.getMajor());
+                    existing.setGpa(form.getGpa());
                     return true;
                 })
                 .orElse(false);
@@ -85,5 +89,25 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(keyword, keyword, pageable);
     }
 
+    private StudentForm toForm(Student student) {
+        StudentForm form = new StudentForm();
+        form.setId(student.getId());
+        form.setName(student.getName());
+        form.setEmail(student.getEmail());
+        form.setAge(student.getAge());
+        form.setMajor(student.getMajor());
+        form.setGpa(student.getGpa());
+        return form;
+    }
 
+    private Student toEntity(StudentForm form) {
+        Student student = new Student();
+        student.setId(form.getId());
+        student.setName(form.getName());
+        student.setEmail(form.getEmail());
+        student.setAge(form.getAge());
+        student.setMajor(form.getMajor());
+        student.setGpa(form.getGpa());
+        return student;
+    }
 }
