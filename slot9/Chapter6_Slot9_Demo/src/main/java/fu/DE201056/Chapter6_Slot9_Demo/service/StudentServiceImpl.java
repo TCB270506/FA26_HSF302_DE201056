@@ -2,7 +2,9 @@ package fu.DE201056.Chapter6_Slot9_Demo.service;
 
 
 import fu.DE201056.Chapter6_Slot9_Demo.dto.StudentForm;
+import fu.DE201056.Chapter6_Slot9_Demo.entity.Major;
 import fu.DE201056.Chapter6_Slot9_Demo.entity.Student;
+import fu.DE201056.Chapter6_Slot9_Demo.repository.MajorRepository;
 import fu.DE201056.Chapter6_Slot9_Demo.repository.StudentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,14 +20,21 @@ import java.util.Optional;
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
+    private final MajorRepository majorRepository;
 
-    public StudentServiceImpl(StudentRepository studentRepository) {
+    public StudentServiceImpl(StudentRepository studentRepository, MajorRepository majorRepository) {
         this.studentRepository = studentRepository;
+        this.majorRepository = majorRepository;
     }
 
     @Override
     public Page<Student> findAll(Pageable pageable) {
         return studentRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Student> search(String keyword, Pageable pageable) {
+        return studentRepository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(keyword, keyword, pageable);
     }
 
     @Override
@@ -48,21 +57,6 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
-    public boolean update(Long id, StudentForm form) {
-        return studentRepository.findById(id)
-                .map(existing -> {
-                    existing.setName(form.getName());
-                    existing.setEmail(form.getEmail());
-                    existing.setAge(form.getAge());
-                    existing.setMajor(form.getMajor());
-                    existing.setGpa(form.getGpa());
-                    return true;
-                })
-                .orElse(false);
-    }
-
-    @Override
-    @Transactional
     public boolean delete(Long id) {
         if (!studentRepository.existsById(id)) {
             return false;
@@ -80,13 +74,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<String> getMajors() {
-        return List.of("CNTT", "KTPM", "HTTT", "ATTT", "MMT");
-    }
-
-    @Override
-    public Page<Student> search(String keyword, Pageable pageable) {
-        return studentRepository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(keyword, keyword, pageable);
+    public List<Major> getMajors() {
+        return majorRepository.findAll();
     }
 
     private StudentForm toForm(Student student) {
@@ -95,8 +84,10 @@ public class StudentServiceImpl implements StudentService {
         form.setName(student.getName());
         form.setEmail(student.getEmail());
         form.setAge(student.getAge());
-        form.setMajor(student.getMajor());
         form.setGpa(student.getGpa());
+        if (student.getMajor() != null) {
+            form.setMajorName(student.getMajor().getName());
+        }
         return form;
     }
 
@@ -106,8 +97,27 @@ public class StudentServiceImpl implements StudentService {
         student.setName(form.getName());
         student.setEmail(form.getEmail());
         student.setAge(form.getAge());
-        student.setMajor(form.getMajor());
         student.setGpa(form.getGpa());
+        if (form.getMajorName() != null) {
+            majorRepository.findByName(form.getMajorName()).ifPresent(student::setMajor);
+        }
         return student;
+    }
+
+    @Override
+    @Transactional
+    public boolean update(Long id, StudentForm form) {
+        return studentRepository.findById(id)
+                .map(existing -> {
+                    existing.setName(form.getName());
+                    existing.setEmail(form.getEmail());
+                    existing.setAge(form.getAge());
+                    existing.setGpa(form.getGpa());
+                    if (form.getMajorName() != null) {
+                        majorRepository.findByName(form.getMajorName()).ifPresent(existing::setMajor);
+                    }
+                    return true;
+                })
+                .orElse(false);
     }
 }

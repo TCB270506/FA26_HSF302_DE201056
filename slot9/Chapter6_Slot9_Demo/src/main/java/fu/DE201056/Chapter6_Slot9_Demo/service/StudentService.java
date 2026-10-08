@@ -1,6 +1,7 @@
 package fu.DE201056.Chapter6_Slot9_Demo.service;
 
 import fu.DE201056.Chapter6_Slot9_Demo.dto.StudentForm;
+import fu.DE201056.Chapter6_Slot9_Demo.entity.Major;
 import fu.DE201056.Chapter6_Slot9_Demo.entity.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,22 +14,19 @@ public interface StudentService {
 
     Page<Student> findAll(Pageable pageable);
 
+    Page<Student> search(String keyword, Pageable pageable);
+
     Optional<Student> findById(Long id);
 
     Optional<StudentForm> findFormById(Long id);
 
     Student create(StudentForm form);
 
-    /** @return true nếu tìm thấy và cập nhật; false nếu không tồn tại id */
     boolean update(Long id, StudentForm form);
 
-    /** @return true nếu xoá được; false nếu không tồn tại id */
     boolean delete(Long id);
 
-    /** Kiểm tra email trùng. excludeId = null khi thêm mới, = id hiện tại khi cập nhật */
     boolean isEmailTaken(String email, Long excludeId);
 
-    List<String> getMajors();
-
-    Page<Student> search(String keyword, Pageable pageable);
+    List<Major> getMajors();
 }

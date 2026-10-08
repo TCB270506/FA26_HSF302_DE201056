@@ -1,6 +1,7 @@
 package fu.DE201056.Chapter6_Slot9_Demo.controller;
 
 import fu.DE201056.Chapter6_Slot9_Demo.dto.StudentForm;
+import fu.DE201056.Chapter6_Slot9_Demo.entity.Major;
 import fu.DE201056.Chapter6_Slot9_Demo.entity.Student;
 import fu.DE201056.Chapter6_Slot9_Demo.service.StudentService;
 import jakarta.validation.Valid;
@@ -30,7 +31,7 @@ public class StudentController {
     }
 
     @ModelAttribute("majors")
-    public List<String> majors() {
+    public List<Major> majors() {
         return studentService.getMajors();
     }
 
