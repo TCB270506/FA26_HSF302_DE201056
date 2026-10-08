@@ -4,6 +4,9 @@ import fu.DE201056.Chapter6_Slot9_Demo.entity.Student;
 import fu.DE201056.Chapter6_Slot9_Demo.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,17 +38,21 @@ public class StudentController {
 // ==================== READ ALL & SEARCH ====================
 
     @GetMapping
-    public String list(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
-        Sort sort = Sort.by(Sort.Direction.ASC, "id");
-        List<Student> students;
+    public String list(@RequestParam(name = "keyword", required = false) String keyword,
+                       @RequestParam(name = "page", defaultValue = "0") int page,
+                       @RequestParam(name = "size", defaultValue = "3") int size,
+                       Model model) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "id"));
+        Page<Student> studentPage;
 
         if (keyword != null && !keyword.trim().isEmpty()) {
-            students = studentService.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(keyword.trim(), keyword.trim(), sort);
+            studentPage = studentService.search(keyword.trim(), pageable);
         } else {
-            students = studentService.findAll();
+            studentPage = studentService.findAll(pageable);
         }
 
-        model.addAttribute("students", students);
+        model.addAttribute("page", studentPage);
+        model.addAttribute("students", studentPage.getContent());
         model.addAttribute("keyword", keyword);
         return "students/list";
     }

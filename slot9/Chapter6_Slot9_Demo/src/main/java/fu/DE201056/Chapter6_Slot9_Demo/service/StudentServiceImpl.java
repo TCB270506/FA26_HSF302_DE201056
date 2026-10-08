@@ -3,6 +3,8 @@ package fu.DE201056.Chapter6_Slot9_Demo.service;
 
 import fu.DE201056.Chapter6_Slot9_Demo.entity.Student;
 import fu.DE201056.Chapter6_Slot9_Demo.repository.StudentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +23,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findAll() {
-        return studentRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+    public Page<Student> findAll(Pageable pageable) {
+
+        return studentRepository.findAll(pageable);
     }
 
     @Override
@@ -78,7 +81,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String name, String email, Sort sort) {
-        return studentRepository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(name, email, sort);
+    public Page<Student> search(String keyword, Pageable pageable) {
+        return studentRepository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(keyword, keyword, pageable);
     }
+
+
 }

@@ -2,6 +2,8 @@ package fu.DE201056.Chapter6_Slot9_Demo.repository;
 
 
 import fu.DE201056.Chapter6_Slot9_Demo.entity.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,11 +13,15 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    /** Email đã tồn tại? (dùng khi thêm mới) */
+    /**
+     * Email đã tồn tại? (dùng khi thêm mới)
+     */
     boolean existsByEmailIgnoreCase(String email);
 
-    /** Email đã được sinh viên KHÁC dùng? (dùng khi cập nhật) */
+    /**
+     * Email đã được sinh viên KHÁC dùng? (dùng khi cập nhật)
+     */
     boolean existsByEmailIgnoreCaseAndIdNot(String email, Long id);
 
-    List<Student> findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String name, String email, Sort sort);
+    Page<Student> findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String name, String email, Pageable pageable);
 }
