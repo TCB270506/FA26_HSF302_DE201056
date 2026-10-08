@@ -40,11 +40,17 @@ public class StudentController {
     @GetMapping
     public String list(@RequestParam(name = "keyword", required = false) String keyword,
                        @RequestParam(name = "page", defaultValue = "0") int page,
-                       @RequestParam(name = "size", defaultValue = "3") int size,
+                       @RequestParam(name = "size", defaultValue = "5") int size,
+                       @RequestParam(name = "sort", defaultValue = "id,asc") String sort,
                        Model model) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "id"));
-        Page<Student> studentPage;
+        String[] sortParts = sort.split(",");
+        String sortField = sortParts[0];
+        String sortDir = sortParts.length > 1 ? sortParts[1] : "asc";
 
+        Sort.Direction direction = sortDir.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
+
+        Page<Student> studentPage;
         if (keyword != null && !keyword.trim().isEmpty()) {
             studentPage = studentService.search(keyword.trim(), pageable);
         } else {
@@ -54,6 +60,11 @@ public class StudentController {
         model.addAttribute("page", studentPage);
         model.addAttribute("students", studentPage.getContent());
         model.addAttribute("keyword", keyword);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        model.addAttribute("currentSort", sortField + "," + sortDir);
+
         return "students/list";
     }
 
