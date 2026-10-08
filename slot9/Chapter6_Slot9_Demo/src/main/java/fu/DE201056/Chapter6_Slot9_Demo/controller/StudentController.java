@@ -4,6 +4,7 @@ import fu.DE201056.Chapter6_Slot9_Demo.entity.Student;
 import fu.DE201056.Chapter6_Slot9_Demo.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,11 +32,21 @@ public class StudentController {
         return studentService.getMajors();
     }
 
-    // ==================== READ ALL ====================
+// ==================== READ ALL & SEARCH ====================
 
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("students", studentService.findAll());
+    public String list(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        List<Student> students;
+
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            students = studentService.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(keyword.trim(), keyword.trim(), sort);
+        } else {
+            students = studentService.findAll();
+        }
+
+        model.addAttribute("students", students);
+        model.addAttribute("keyword", keyword);
         return "students/list";
     }
 
@@ -149,4 +160,5 @@ public class StudentController {
         model.addAttribute("pageTitle", isEdit ? "Cập nhật sinh viên" : "Thêm sinh viên mới");
         return FORM_VIEW;
     }
+
 }

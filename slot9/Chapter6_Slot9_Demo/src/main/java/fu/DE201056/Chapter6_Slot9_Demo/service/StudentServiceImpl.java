@@ -76,4 +76,9 @@ public class StudentServiceImpl implements StudentService {
     public List<String> getMajors() {
         return List.of("CNTT", "KTPM", "HTTT", "ATTT", "MMT");
     }
+
+    @Override
+    public List<Student> findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String name, String email, Sort sort) {
+        return studentRepository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(name, email, sort);
+    }
 }

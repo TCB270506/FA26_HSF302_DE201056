@@ -1,6 +1,7 @@
 package fu.DE201056.Chapter6_Slot9_Demo.service;
 
 import fu.DE201056.Chapter6_Slot9_Demo.entity.Student;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +24,6 @@ public interface StudentService {
     boolean isEmailTaken(String email, Long excludeId);
 
     List<String> getMajors();
+
+    List<Student> findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String name, String email, Sort sort);
 }
