@@ -1,6 +1,7 @@
 package fu.DE201056.DemoThymleaf.controller;
 
-import com.example.demo.model.SanPham;
+
+import fu.DE201056.DemoThymleaf.model.SanPham;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

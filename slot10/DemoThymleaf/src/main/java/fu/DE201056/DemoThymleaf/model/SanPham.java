@@ -1,4 +1,4 @@
-package fu.DE201056.DemoThymleaf.DTO;
+package fu.DE201056.DemoThymleaf.model;
 
 public class SanPham {
     private String ten;
