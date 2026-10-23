@@ -1,4 +1,4 @@
-package com.hsf302.student.service;
+package com.hsf302.student.repository;
 
 import com.hsf302.student.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
