@@ -150,8 +150,18 @@ public class DrinkOrderApp extends Application {
         });
     }
 
-
+    // TODO 12: Đưa form về trạng thái ban đầu
     private void reset() {
+        tfName.clear();
+        cbDrink.setValue(null);
+        tgSize.selectToggle(rbM);
+        chkPearl.setSelected(false);
+        chkJelly.setSelected(false);
+        chkLessSugar.setSelected(false);
+        tfQty.setText("1");
+        lblResult.setStyle("");
+        lblResult.setText("Chưa có đơn hàng");
+        tfName.requestFocus();
     }
 
     // TODO 11: Xử lý chính — đọc giá trị, validate, tính tiền
