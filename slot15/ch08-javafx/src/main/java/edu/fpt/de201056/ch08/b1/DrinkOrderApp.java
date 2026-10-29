@@ -113,6 +113,12 @@ public class DrinkOrderApp extends Application {
         });
     }
 
+    // TODO 7: Một handler dùng chung cho nhiều CheckBox — phân biệt bằng getSource()
+    EventHandler<ActionEvent> onCheck = e -> {
+        CheckBox src = (CheckBox) e.getSource();
+        log("%s: %s".formatted(src.getText(), src.isSelected() ? "chọn" : "bỏ chọn"));
+    };
+
     private void reset() {
     }
 
