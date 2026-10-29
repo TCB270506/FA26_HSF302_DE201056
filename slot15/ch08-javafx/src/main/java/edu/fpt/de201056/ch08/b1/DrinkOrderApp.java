@@ -111,20 +111,31 @@ public class DrinkOrderApp extends Application {
                 }
             }
         });
+        // TextField: nhấn Enter → ActionEvent. Vì tfName có onAction nên Enter KHÔNG kích hoạt defaultButton
+        tfName.setOnAction(e -> cbDrink.requestFocus());
+
+        // TODO 7: Một handler dùng chung cho nhiều CheckBox — phân biệt bằng getSource()
+        EventHandler<ActionEvent> onCheck = e -> {
+            CheckBox src = (CheckBox) e.getSource();
+            log("%s: %s".formatted(src.getText(), src.isSelected() ? "chọn" : "bỏ chọn"));
+        };
+
+        // TODO 8: ChangeListener — lắng nghe GIÁ TRỊ thay đổi (do người dùng hoặc do code)
+        tgSize.selectedToggleProperty().addListener((obs, oldT, newT) -> {
+            if (newT != null) log("Đổi size → " + ((RadioButton) newT).getText());
+        });
+        tfQty.textProperty().addListener((obs, oldV, newV) -> {
+            if (!newV.matches("\\d{0,2}")) tfQty.setText(oldV);   // chỉ cho gõ tối đa 2 chữ số
+        });
     }
 
-    // TODO 7: Một handler dùng chung cho nhiều CheckBox — phân biệt bằng getSource()
-    EventHandler<ActionEvent> onCheck = e -> {
-        CheckBox src = (CheckBox) e.getSource();
-        log("%s: %s".formatted(src.getText(), src.isSelected() ? "chọn" : "bỏ chọn"));
-    };
 
     private void reset() {
     }
 
     private void handleCalc(ActionEvent actionEvent) {
     }
-    
+
     private void log(String msg) {
         taLog.appendText("[%s] %s%n".formatted(
                 LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")), msg));
