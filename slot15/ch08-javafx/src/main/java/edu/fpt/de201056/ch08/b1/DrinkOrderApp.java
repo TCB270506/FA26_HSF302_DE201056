@@ -94,6 +94,38 @@ public class DrinkOrderApp extends Application {
     }
 
     private void registerEvents() {
+        // TODO 4: Cách 1 — method reference (gọn khi logic dài, tách ra method riêng)
+        btnCalc.setOnAction(this::handleCalc);
+        // TODO 5: Cách 2 — lambda (phổ biến nhất)
+        btnClear.setOnAction(e -> {
+            reset();
+            log("Bấm Làm lại");
+        });
+        // TODO 6: Cách 3 — anonymous class (viết "dài" để hiểu bản chất: EventHandler là interface 1 method handle)
+        cbDrink.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String d = cbDrink.getValue();
+                if (d != null) {            // reset() gọi setValue(null) cũng kích hoạt onAction → phải kiểm tra null
+                    log("Chọn đồ uống: %s (%,d đ)".formatted(d, MENU.get(d)));
+                }
+            }
+        });
+    }
+
+    private void reset() {
+    }
+
+    private void handleCalc(ActionEvent actionEvent) {
+    }
+    
+    private void log(String msg) {
+        taLog.appendText("[%s] %s%n".formatted(
+                LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")), msg));
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
 }
