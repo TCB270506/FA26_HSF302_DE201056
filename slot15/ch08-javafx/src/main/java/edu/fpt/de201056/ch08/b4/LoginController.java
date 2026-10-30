@@ -96,31 +96,4 @@ public class LoginController {
             else AlertUtil.warn("Email không hợp lệ");
         });
     }
-
-    // TODO 7: Controller màn hình 2
-    public class WelcomeController {
-        @FXML private Label lblWelcome;
-        public void setUser(String user, String role) {
-            lblWelcome.setText("Xin chào %s (%s)!".formatted(user, role));
-        }
-        @FXML private void handleLogout(ActionEvent e) { ((Stage) lblWelcome.getScene().getWindow()).close(); }
-    }
-// welcome-view.fxml: VBox với <Label fx:id="lblWelcome"/> và <Button text="Đăng xuất" onAction="#handleLogout"/>
-
-    // TODO 8: Application
-    public class LoginApp extends Application {
-        @Override
-        public void start(Stage stage) throws IOException {
-            // Đường dẫn TƯƠNG ĐỐI → tìm trong resources/com/fu/ch08/b4/
-            FXMLLoader loader = new FXMLLoader(LoginApp.class.getResource("login-view.fxml"));
-            stage.setScene(new Scene(loader.load()));
-            stage.setTitle("B4 - Đăng nhập");
-            stage.setResizable(false);
-            stage.show();
-        }
-
-        public static void main(String[] args) {
-            launch(args);
-        }
-    }
 }

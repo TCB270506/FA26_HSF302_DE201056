@@ -46,17 +46,13 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <!-- Đổi theo bài đang chạy: com.fu.ch08/com.fu.ch08.b1.DrinkOrderApp -->
-                    <mainClass>edu.fpt.de201056.ch08.b1.DrinkOrderApp</mainClass>
+                    <mainClass>edu.fpt.de201056.ch08.b4.LoginController</mainClass>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>16</source>
-                    <target>16</target>
-                </configuration>
+                <version>3.11.0</version>
             </plugin>
         </plugins>
     </build>
