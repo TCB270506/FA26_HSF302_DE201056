@@ -85,4 +85,26 @@ public class LoginController {
             AlertUtil.error("Không mở được màn hình chào mừng: " + ex.getMessage());
         }
     }
+
+    @FXML
+    private void handleForgot() {
+        TextInputDialog d = new TextInputDialog();
+        d.setHeaderText("Nhập email để lấy lại mật khẩu");
+        d.showAndWait().ifPresent(email -> {
+            if (email.matches("^[\\w.+-]+@[\\w-]+(\\.[\\w-]+)+$")) AlertUtil.info("Đã gửi hướng dẫn tới " + email);
+            else AlertUtil.warn("Email không hợp lệ");
+        });
+    }
+
+    // TODO 7: Controller màn hình 2
+    public class WelcomeController {
+        @FXML private Label lblWelcome;
+        public void setUser(String user, String role) {
+            lblWelcome.setText("Xin chào %s (%s)!".formatted(user, role));
+        }
+        @FXML private void handleLogout(ActionEvent e) { ((Stage) lblWelcome.getScene().getWindow()).close(); }
+    }
+// welcome-view.fxml: VBox với <Label fx:id="lblWelcome"/> và <Button text="Đăng xuất" onAction="#handleLogout"/>
+
+
 }
