@@ -1,4 +1,4 @@
-package com.example.data.Service;
+package com.example.data.service;
 
 import com.example.data.pojo.Student;
 import java.util.List;

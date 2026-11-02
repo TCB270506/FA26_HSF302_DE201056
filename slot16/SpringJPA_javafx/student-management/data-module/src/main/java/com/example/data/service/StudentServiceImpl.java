@@ -1,4 +1,4 @@
-package com.example.data.Service;
+package com.example.data.service;
 
 import com.example.data.exception.StudentNotFoundException;
 import com.example.data.exception.ValidationException;
